@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TXT文本编辑器</title>
+    <style type="text/css">
+        .STYLE1 {
+            font-size: 36px;
+        }
+        .STYLE2 {
+            font-size: 16px;
+        }
+    </style>
+ <script>
+       
+        function checkDomain() {
+            const allowedDomains = ['sean0629.pages.dev', 'localhost:8000'];
+            const currentHost = window.location.host;
+            const currentProtocol = window.location.protocol;
+
+            if (!allowedDomains.includes(currentHost) || 
+                (currentHost === 'sean0629.pages.dev' && currentProtocol !== 'https:') ||
+                (currentHost === 'localhost:8000' && !window.location.pathname.includes('/index.html'))) {
+                document.body.innerHTML = `
+                    <p>请注意，本网站所有站点文件均受Cloudflare®知识产权保护计划保护。</p>
+                    <p>所有使用源代码的行为会被认定为侵权，并有可能被追究法律责任。</p>
+                    <p>请立刻停止您的行为，并删除此页面。</p>
+                    <p>如果您想体验完整的功能，请前往 <a href="https://sean0629.pages.dev">https://sean0629.pages.dev。</a></p>
+                `;
+                return false;
+            }
+            return true;
+        }
+
+        window.onload = checkDomain;
+    </script>  
+    <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="index.html">主页</a>&nbsp;<a href="Minecraft.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="https://physicshome.pages.dev/">物理学网站</a></p>
+    </div>
+    </div>
+   <style>
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        #editor {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .btn {
+            padding: 8px 16px;
+            margin-right: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        #formatSelect {
+            padding: 8px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        #savedFiles {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .file-item {
+            padding: 5px;
+            margin: 5px 0;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+     <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="untitled.html">主页</a>&nbsp;<a href="eaglercraft-m/warn.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="https://physicshome.pages.dev/">物理学网站</a></p>
+    </div>
+    </div>
+    <div class="container">
+        <textarea id="editor"></textarea>
+        <div>
+            <button class="btn" onclick="saveText()">保存</button>
+            <select id="formatSelect">
+                <option value="txt">.txt</option>
+                <option value="doc">.doc</option>
+                <option value="md">.md</option>
+                <option value="json">.json</option>
+            </select>
+            <button class="btn" onclick="downloadText()">下载</button>
+            <input type="file" id="fileInput" accept=".txt" style="display: none" onchange="openFile(event)">
+            <button class="btn" onclick="document.getElementById('fileInput').click()">打开TXT文件</button>
+        </div>
+        <div id="savedFiles">
+            <h3>已保存的文件</h3>
+            <div id="filesList"></div>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时恢复保存的内容和显示保存的文件列表
+        window.onload = function() {
+            const savedText = localStorage.getItem('savedText');
+            if (savedText) {
+                document.getElementById('editor').value = savedText;
+            }
+            updateFilesList();
+        }
+
+        // 保存文本内容到localStorage
+        function saveText() {
+            const text = document.getElementById('editor').value;
+            const timestamp = new Date().toISOString();
+            const fileName = `savedFile_${timestamp}`;
+            
+            // 保存文件内容和时间戳
+            localStorage.setItem(fileName, text);
+            alert('保存成功！');
+            
+            updateFilesList();
+        }
+
+        // 更新文件列表显示
+        function updateFilesList() {
+            const filesList = document.getElementById('filesList');
+            filesList.innerHTML = '';
+            
+            // 获取所有以savedFile_开头的存储项
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('savedFile_')) {
+                    const div = document.createElement('div');
+                    div.className = 'file-item';
+                    const date = new Date(key.replace('savedFile_', '')).toLocaleString();
+                    
+                    div.innerHTML = `
+                        <span>${date}</span>
+                        <div>
+                            <button class="btn" onclick="loadSavedFile('${key}')">加载</button>
+                            <button class="btn" onclick="deleteSavedFile('${key}')">删除</button>
+                        </div>
+                    `;
+                    filesList.appendChild(div);
+                }
+            });
+        }
+
+        // 加载保存的文件
+        function loadSavedFile(key) {
+            const text = localStorage.getItem(key);
+            document.getElementById('editor').value = text;
+        }
+
+        // 删除保存的文件
+        function deleteSavedFile(key) {
+            localStorage.removeItem(key);
+            updateFilesList();
+        }
+
+        // 打开TXT文件
+        function openFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('editor').value = e.target.result;
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        // 下载文本内容
+        function downloadText() {
+            const text = document.getElementById('editor').value;
+            const format = document.getElementById('formatSelect').value;
+            let mimeType = 'text/plain';
+            
+            // 根据不同格式设置对应的MIME类型
+            switch(format) {
+                case 'doc':
+                    mimeType = 'application/msword';
+                    break;
+                case 'md':
+                    mimeType = 'text/markdown';
+                    break;
+                case 'json':
+                    mimeType = 'application/json';
+                    break;
+            }
+
+            const blob = new Blob([text], {type: mimeType});
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `text.${format}`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

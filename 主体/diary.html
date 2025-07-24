@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>备忘录</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        #notes { margin-top: 1em; }
+        .note { border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; background: #fafafa; }
+        img { max-width: 200px; display: block; margin-top: 0.5em; }
+    </style>
+</head>
+<script>
+  
+function checkDomain() {
+    const allowedDomains = ['sean0629.pages.dev', 'localhost:8000'];
+    const currentHost = window.location.host;
+    const currentProtocol = window.location.protocol;
+
+    if (!allowedDomains.includes(currentHost) || 
+        (currentHost === 'sean0629.pages.dev' && currentProtocol !== 'https:') ||
+        (currentHost === 'localhost:8000' && !window.location.pathname.includes('/index.html'))) {
+        document.body.innerHTML = `
+            <p>请注意，本网站所有站点文件均受Cloudflare®知识产权保护计划保护。</p>
+            <p>所有使用源代码的行为会被认定为侵权，并有可能被追究法律责任。</p>
+            <p>请立刻停止您的行为，并删除此页面。</p>
+            <p>如果您想体验完整的功能，请前往 <a href="https://sean0629.pages.dev">https://sean0629.pages.dev。</a></p>
+        `;
+        return false;
+    }
+    return true;
+}
+
+window.onload = checkDomain;
+</script>    
+<body>
+    <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="untitled.html">主页</a>&nbsp;<a href="eaglercraft-m/warn.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="http://physicshome.pages.dev">物理学网站</a></p>
+    </div>
+    </div>
+    <h1>备忘录</h1>
+    <form id="noteForm">
+        <textarea id="text" rows="3" cols="40" placeholder="输入文字..."></textarea><br>
+        <input type="file" id="image" accept="image/*"><br>
+        <button type="submit">添加</button>
+    </form>
+    <div id="notes"></div>
+
+    <script>
+        // 读取本地存储
+        function loadNotes() {
+            const notes = JSON.parse(localStorage.getItem('memos') || '[]');
+            const notesDiv = document.getElementById('notes');
+            notesDiv.innerHTML = '';
+            notes.forEach(note => {
+                const div = document.createElement('div');
+                div.className = 'note';
+                if (note.text) {
+                    const p = document.createElement('p');
+                    p.textContent = note.text;
+                    div.appendChild(p);
+                }
+                if (note.img) {
+                    const img = document.createElement('img');
+                    img.src = note.img;
+                    div.appendChild(img);
+                }
+                notesDiv.appendChild(div);
+            });
+        }
+
+        // 保存到本地存储
+        function saveNote(note) {
+            const notes = JSON.parse(localStorage.getItem('memos') || '[]');
+            notes.unshift(note);
+            localStorage.setItem('memos', JSON.stringify(notes));
+        }
+
+        document.getElementById('noteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const text = document.getElementById('text').value.trim();
+            const file = document.getElementById('image').files[0];
+            if (!text && !file) return;
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    saveNote({ text, img: evt.target.result });
+                    document.getElementById('noteForm').reset();
+                    loadNotes();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                saveNote({ text, img: null });
+                document.getElementById('noteForm').reset();
+                loadNotes();
+            }
+        });
+
+        // 页面加载时显示
+        loadNotes();
+    </script>
+</body>
+</html>

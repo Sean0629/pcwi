@@ -1,0 +1,75 @@
+<!--请注意，盗窃他人源代码的行为是不对的。-->
+<!DOCTYPE html>
+<html lang="zh">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>应用导航中心</title>
+    <style type="text/css">
+        .STYLE1 {
+            font-size: 36px;
+        }
+        .STYLE2 {
+            font-size: 16px;
+        }
+    </style>
+ <script>
+        function checkNewHomepage() {
+            alert("本网站已推出新主页。");
+            if(confirm("是否要前往新主页？")) {
+                window.location.href = "untitled.html";
+            } else {
+                alert("本页面已经停止支持。若想体验新功能，请前往新主页。");
+            }
+        }
+       
+        function checkDomain() {
+            const allowedDomains = ['sean0629.pages.dev', 'localhost:8000'];
+            const currentHost = window.location.host;
+            const currentProtocol = window.location.protocol;
+
+            if (!allowedDomains.includes(currentHost) || 
+                (currentHost === 'sean0629.pages.dev' && currentProtocol !== 'https:') ||
+                (currentHost === 'localhost:8000' && !window.location.pathname.includes('/index.html'))) {
+                document.body.innerHTML = `
+                    <p>请注意，本网站所有站点文件均受Cloudflare®知识产权保护计划保护。</p>
+                    <p>所有使用源代码的行为会被认定为侵权，并有可能被追究法律责任。</p>
+                    <p>请立刻停止您的行为，并删除此页面。</p>
+                    <p>如果您想体验完整的功能，请前往 <a href="https://sean0629.pages.dev">https://sean0629.pages.dev。</a></p>
+                `;
+                return false;
+            }
+            return true;
+        }
+
+        window.onload = function() {
+            if(checkDomain()) {
+                checkNewHomepage();
+            }
+        };
+    </script>   
+</head>
+<body>
+    <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="untitled.html">主页</a>&nbsp;<a href="eaglercraft-m/warn.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="https://physicshome.pages.dev/">物理学网站</a></p>
+    </div>
+    </div>
+    <p><a href="index.html" title="当前页面，包含所有可用功能的链接导航">主页-你现在看到的页面</a></p>
+   
+    <p><a href="eaglercraft-m/warn.html" title="基于Eaglercraft 1.8的Minecraft网页版，仅支持PC端运行">Minecraft游玩（基于Eagercraft1.8）-仅支持电脑</a></p>
+    <p><a href="eaglercraft-m/warn.html" title="Eaglercraft提供的另一个Minecraft网页版本">Minecraft游玩-来自Eaglercraft</a></p>
+    <p><a href="eaglercraft-m/warn.html" title="适配全平台的Minecraft网页版，支持手机和电脑">Minecraft游玩（基于Eagercraft1.8）-手机、电脑均可</a></p>
+    <p><a href="code-editor.html" title="在线HTML代码编辑器，支持实时预览">HTML编辑器</a></p>
+    <p><a href="https://physicshome.pages.dev/" title="包含物理学知识的学习网站">用于学习的物理学网站</a></p>
+    <p><a href="diary.html" title="在线记事本，可保存和编辑文本内容">备忘录</a></p>
+    <p><a href="gomuko.html" title="经典的五子棋游戏，支持人机对战">五子棋</a></p>
+    <p><a href="search.html" title="站内搜索功能">搜索</a></p>
+    <p><a href="ai.html" title="一个简单的聊天机器人">Artificial Intelligence（人工智障）</a></p>
+    <p><a href="news.html" title="新闻资讯聚合页面">新闻</a></p>
+    <p><a href="AI-Free.html" title="一个无趣的AI聊天机器人">某乐子人工智障</a></p>
+    <p><a href="person.html" title="可以比较同类型图片或视频中人物的相似度">简易图片/视频人物相似度比对-现阶段仅支持同类型文件</a></p>
+    <p><a href="Python.html" onclick="alert('此页面仅用于学习Python，不支持外部库。');return true" title="基础的Python在线编译器，不支持导入外部库">简易的Python编译器-现暂不支持外部库</a></p>
+    <p><a href="data.html" title="简单的文本编辑工具">TXT编辑器</a></p>
+    <p><a href="boom.html" title="经典的扫雷小游戏">扫雷游戏</a></p>
+</body>
+</html>

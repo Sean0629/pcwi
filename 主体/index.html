@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lc6140rAAAAAKdtV4k8MJ1JmwFvG4LuXQ5GBobQ"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .login-container button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+        .grecaptcha-badge {
+            visibility: visible !important;
+            bottom: 10px !important;
+            right: 10px !important;
+            z-index: 9999 !important;
+        }
+        .message {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: red;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Sean的应用导航中心-用户登录</h2>
+        <input type="text" id="username" placeholder="用户名 (大于8位)">
+        <input type="password" id="password" placeholder="密码 (大于8位)">
+        <p id="message" class="message"></p>
+        <button onclick="handleLogin();">登录</button>
+        <div id="recaptcha-container"></div>
+    </div>
+
+    <script>
+        async function handleLogin() {
+            console.log('handleLogin function called');
+
+            // Execute reCAPTCHA Enterprise
+            grecaptcha.enterprise.ready(function() {
+                grecaptcha.enterprise.execute('6Lc6140rAAAAAKdtV4k8MJ1JmwFvG4LuXQ5GBobQ', {action: 'login'}).then(function(token) {
+                    // Pass the token to your backend for verification
+                    // For this example, we'll proceed directly with the login logic
+                    // In a real application, you would send this token to your server
+                    // along with username and password for verification.
+                    performLogin(token);
+                });
+            });
+        }
+
+        async function performLogin(recaptchaToken) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = '';
+
+            // Add reCAPTCHA token to your data if sending to backend
+            // console.log('reCAPTCHA Token:', recaptchaToken);
+
+            if (username.length <= 8) {
+                messageElement.textContent = '用户名必须大于8位，请重新输入。';
+                return;
+            }
+
+
+            const usernameRegex = /^[a-zA-Z0-9]+$/;
+            if (!usernameRegex.test(username)) {
+                messageElement.textContent = '用户名只能包含英文和数字。';
+                return;
+            }
+
+            if (password.length <= 8) {
+                messageElement.textContent = '密码必须大于8位，请重新输入。';
+                return;
+            }
+
+            try {
+                const viewUrl = `https://api.textdb.online/${username}`;
+                const response = await fetch(viewUrl);
+                const data = await response.text();
+
+                if (data === '') {
+                    // 用户名不存在，存储新密码
+                    const updateUrl = `https://api.textdb.online/update/?key=${username}`;
+                    const updateResponse = await fetch(updateUrl, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        body: `value=${encodeURIComponent(password)}`
+                    });
+
+                    if (updateResponse.ok) {
+                        alert('注册成功，密码已保存！');
+                        window.location.href = 'untitled.html';
+                    } else {
+                        messageElement.textContent = '注册失败，请稍后再试。';
+                    }
+                } else {
+                    // 用户名存在，比对密码
+                    if (data === password) {
+                        alert('登录成功！');
+                        window.location.href = 'untitled.html';
+                    } else {
+                        messageElement.textContent = '密码错误，请重试。';
+                    }
+                }
+            } catch (error) {
+                console.error('登录/注册过程中发生错误:', error);
+                messageElement.textContent = '发生错误，请检查网络或稍后再试。';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>应用导航中心</title>
+    <style type="text/css">
+        .STYLE1 {
+            font-size: 36px;
+        }
+        .STYLE2 {
+            font-size: 16px;
+        }
+
+        /* blog.html styles */
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        textarea, input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .blog-posts {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .post {
+            background: #e9e9e9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .post-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .author-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .post-header {
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+    <body>
+    <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="untitled.html">主页</a>&nbsp;<a href="eaglercraft-m/warn.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="https://physicshome.pages.dev/">物理学网站</a></p>
+    </div>
+    </div>
+<div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; align-items: flex-start; margin: 40px auto; max-width: 1200px; padding: 0 20px;">
+    <!-- 第一行图标 -->
+    <a href="eaglercraft-m/warn.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/1.jpg" class="big-icon">
+            <div class="icon-info">Minecraft在线游玩</div>
+            <div class="info-tip">Minecraft 1.8游玩-基于Eaglercraft</div>
+        </div>
+    </a>
+    <!-- 第二行图标 -->
+    <a href="code-editor.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/2.jpg" class="big-icon">
+            <div class="icon-info">HTML/CSS/JS编辑器</div>
+            <div class="info-tip">HTML/CSS/JS编辑器</div>
+        </div>
+    </a>
+    <!-- 第三行图标 -->
+    <a href="https://physicshome.pages.dev/" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/3.jpg" class="big-icon">
+            <div class="icon-info">用于学习的物理学网站</div>
+            <div class="info-tip">物理网站</div>
+        </div>
+    </a>
+    <!-- 第四行图标 -->
+    <a href="diary.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/4.jpg" class="big-icon">
+            <div class="icon-info">不会被他人看到</div>
+            <div class="info-tip">备忘录</div>
+        </div>
+    </a>
+
+    <!-- 第五行图标 -->
+    <a href="gomuko.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/5.jpg" class="big-icon">
+            <div class="icon-info">支持人机对战的五子棋游戏</div>
+            <div class="info-tip">五子棋</div>
+        </div>
+    </a>
+    <!-- 第六行图标 -->
+    <a href="search.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/6.jpg" class="big-icon">
+            <div class="icon-info">支持多个搜索引擎</div>
+            <div class="info-tip">搜索</div>
+        </div>
+    </a>
+    <!-- 第七行图标 -->
+    <a href="ai.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/7.jpg" class="big-icon">
+            <div class="icon-info">简易的人工智障</div>
+            <div class="info-tip">人工智障</div>
+        </div>
+    </a>
+    <!-- 第八行图标 -->
+    <a href="news.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/8.jpg" class="big-icon">
+            <div class="icon-info">游戏新闻</div>
+            <div class="info-tip">新闻</div>
+        </div>
+    </a>
+    <!-- 第九行图标 -->
+    <a href="boom.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/9.jpg" class="big-icon">
+            <div class="icon-info">Minesweeper-扫雷游戏</div>
+            <div class="info-tip">扫雷游戏</div>
+        </div>
+    </a>
+    <!-- 第十行图标 -->
+    <a href="person.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/10.jpg" class="big-icon">
+            <div class="icon-info">简易图片/视频人物相似度比对-现阶段仅支持同类型文件</div>
+            <div class="info-tip">人物比对</div>
+        </div>
+    </a>
+    <!-- 第十一行图标 -->
+    <a href="Python.html" onclick="alert('此页面仅用于学习Python，不支持外部库。');return true;" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/11.jpg" class="big-icon">
+            <div class="icon-info">简易的Python编译器-现暂不支持外部库</div>
+            <div class="info-tip">Python编译器</div>
+        </div>
+    </a>
+    <!-- 第十二行图标 -->
+    <a href="data.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/12.jpg" class="big-icon">
+            <div class="icon-info">TXT文本编辑器</div>
+            <div class="info-tip">文本编辑器</div>
+        </div>
+    </a>
+    <!-- 第十三行图标 -->
+    <a href="resource/resource.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/13.jpg" class="big-icon">
+            <div class="icon-info">资源分享</div>
+            <div class="info-tip">资源</div>
+        </div>
+    </a>
+    <!-- 第十四行图标 -->
+    <a href="v86.html" onclick="alert('请注意，本v86模拟器未配置任何镜像文件。若想正常使用，请点击 Skip to custom settings并配置自己的镜像文件。');return true;" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/14.jpg" class="big-icon">
+            <div class="icon-info">v86虚拟机-处于测试阶段</div>
+            <div class="info-tip">v86虚拟机</div>
+        </div>
+    </a>
+    <!-- 第十五行图标 -->
+    <a href="calculate.html" style="text-decoration: none; color: inherit;">
+        <div class="icon-container" onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';" onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+            <img src="images/15.jpg" class="big-icon">
+            <div class="icon-info">简单的计算器</div>
+            <div class="info-tip">计算器</div>
+        </div>
+    </a>
+
+    
+</div>
+
+<style>
+    .icon-container {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        margin: 0;
+        text-align: center;
+        transition: width 0.3s cubic-bezier(.4,0,.2,1), height 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    .big-icon {
+        width: 180px;
+        height: 180px;
+        border-radius: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        transition: 
+            transform 0.3s cubic-bezier(.4,0,.2,1), 
+            box-shadow 0.3s cubic-bezier(.4,0,.2,1),
+            width 0.3s cubic-bezier(.4,0,.2,1), 
+            height 0.3s cubic-bezier(.4,0,.2,1);
+        display: block;
+        margin: 0 auto;
+        background: #f5f5f5;
+        object-fit: cover;
+    }
+    .icon-info {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 12px;
+        background: rgba(0,0,0,0.7);
+        color: #fff;
+        font-size: 18px;
+        padding: 10px 0;
+        border-radius: 0 0 18px 18px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s cubic-bezier(.4,0,.2,1), transform 0.3s cubic-bezier(.4,0,.2,1);
+        transform: translateY(20px);
+    }
+    .info-tip {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #888;
+        font-size: 16px;
+        background: rgba(255,255,255,0.8);
+        padding: 2px 10px;
+        border-radius: 8px;
+        pointer-events: none;
+        visibility: visible;
+    }
+    .icon-container:hover {
+        width: 240px;
+        height: 240px;
+        z-index: 2;
+    }
+    .icon-container:hover .big-icon {
+        width: 240px;
+        height: 240px;
+        transform: scale(1.0);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+    .icon-container:hover .icon-info {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+<p><a href="old-index.html" title="老式主页">前往旧主页</a></p>
+
+<p>如果您有任何问题，请联系<strong><strong><font color="red">Seanzeng0629@outlook.com。</font></strong></strong></p>
+<div id="resetTimer" style="text-align: center; margin: 20px 0; padding: 10px; background-color: #f0f0f0; border-radius: 5px;">
+    请注意，本评论区每七天重置。距离下次重置时间还有<span id="countdown">计算中...</span>
+</div>
+
+<script>
+// 获取初始重置时间
+function getInitialResetTime() {
+    // 获取当前时间
+    const now = new Date();
+    // 设置基准时间为2025年7月12日
+    const baseDate = new Date(2025, 6, 12);
+    
+    // 计算从基准时间开始经过了多少个7天周期
+    const cycles = Math.floor((now - baseDate) / (7 * 24 * 60 * 60 * 1000));
+    
+    // 计算下一个重置时间
+    const nextReset = new Date(baseDate.getTime() + (cycles + 1) * 7 * 24 * 60 * 60 * 1000);
+    
+    return nextReset;
+}
+
+// 更新倒计时显示
+function updateCountdown() {
+    const now = new Date();
+    const reset = getInitialResetTime();
+    const diff = reset - now;
+
+    // 计算天、时、分、秒
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    // 更新显示
+    document.getElementById('countdown').textContent = 
+        `${days}天${hours}时${minutes}分${seconds}秒`;
+}
+
+// 每秒更新一次倒计时
+setInterval(updateCountdown, 1000);
+// 立即执行一次更新
+updateCountdown();
+</script>
+
+
+<!-- 博客内容开始 -->
+<div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee;">
+    <div class="container">
+        <h1>评论区</h1>
+        <div class="author-info">
+            <h2>个人信息</h2>
+            <input type="text" id="authorName" placeholder="你的名字" />
+            <input type="text" id="authorTitle" placeholder="联系方式" />
+            <textarea id="authorBio" rows="3" placeholder="个人简介...（若没有则填写”无”）"></textarea>
+        </div>
+        <div>
+            <h2>发布新文章</h2>
+            <textarea id="newPostContent" rows="10" placeholder="在这里写下你的评论..."></textarea>
+            <button onclick="publishPost()">发布文章</button>
+        </div>
+        <div class="blog-posts">
+            <h2>所有评论</h2>
+            <div id="postsContainer">
+                <!-- 博客文章将在这里加载 -->
+                加载中...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const updateApiUrl = 'https://api.textdb.online/update/?key=chatchatchatchatchat';
+        const viewApiUrl = 'https://api.textdb.online/chatchatchatchatchat';
+        const replyUpdateApiUrl = 'https://api.textdb.online/update/?key=replyreplyreplyreplyreply';
+        const replyViewApiUrl = 'https://api.textdb.online/replyreplyreplyreplyreply';
+        const likesUpdateApiUrl = 'https://api.textdb.online/update/?key=goodgoodgoodgoodgood';
+        const likesViewApiUrl = 'https://api.textdb.online/goodgoodgoodgoodgood';
+
+        // 存储所有评论数据
+        let allPosts = [];
+        let allReplies = [];
+        let allLikes = {};
+
+        // 初始化时加载已有数据
+        async function initializeData() {
+            try {
+                // 获取评论数据
+                const postsResponse = await fetch(viewApiUrl);
+                if (!postsResponse.ok) throw new Error('获取评论数据失败');
+                const postsText = await postsResponse.text();
+                // 确保解析后的数据是数组
+                const parsedPosts = postsText ? JSON.parse(postsText) : [];
+                allPosts = Array.isArray(parsedPosts) ? parsedPosts : [];
+
+                // 获取回复数据
+                const repliesResponse = await fetch(replyViewApiUrl);
+                if (!repliesResponse.ok) throw new Error('获取回复数据失败');
+                const repliesText = await repliesResponse.text();
+                const parsedReplies = repliesText ? JSON.parse(repliesText) : [];
+                allReplies = Array.isArray(parsedReplies) ? parsedReplies : [];
+
+                // 获取点赞数据
+                const likesResponse = await fetch(likesViewApiUrl);
+                if (!likesResponse.ok) throw new Error('获取点赞数据失败');
+                const likesText = await likesResponse.text();
+                allLikes = likesText ? JSON.parse(likesText) : {};
+
+            } catch (error) {
+                console.error('初始化数据失败:', error);
+                throw error;
+            }
+        }
+
+        async function publishPost() {
+            const authorName = document.getElementById('authorName').value.trim();
+            const authorTitle = document.getElementById('authorTitle').value.trim();
+            const authorBio = document.getElementById('authorBio').value.trim();
+            const postContent = document.getElementById('newPostContent').value.trim();
+
+            if (!postContent || !authorName) {
+                alert('请填写名字和评论内容！');
+                return;
+            }
+
+            const postData = {
+                id: Date.now().toString(),
+                author: authorName,
+                title: authorTitle,
+                bio: authorBio,
+                content: postContent,
+                date: new Date().toLocaleString(),
+                likes: 0
+            };
+
+            try {
+                // 获取并更新评论数据
+                const response = await fetch(viewApiUrl);
+                if (!response.ok) throw new Error('获取现有评论失败');
+                const existingData = await response.text();
+                // 确保现有数据是数组
+                let currentPosts = [];
+                if (existingData) {
+                    const parsed = JSON.parse(existingData);
+                    currentPosts = Array.isArray(parsed) ? parsed : [];
+                }
+                currentPosts.push(postData);
+
+                // 提交更新
+                const updateResponse = await fetch(updateApiUrl, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: `value=${encodeURIComponent(JSON.stringify(currentPosts))}`
+                });
+
+                if (!updateResponse.ok) {
+                    throw new Error('发布评论失败，服务器响应异常');
+                }
+
+                document.getElementById('newPostContent').value = '';
+                await loadPosts();
+                alert('评论发布成功！');
+
+            } catch (error) {
+                console.error('发布失败:', error);
+                alert(`发布失败: ${error.message || '服务器连接异常'}`);
+            }
+        }
+
+        // 其余函数保持不变...
+        async function publishReply(postId) {
+            const replyContent = document.getElementById(`replyContent_${postId}`).value.trim();
+            const authorName = document.getElementById('authorName').value.trim();
+
+            if (!replyContent || !authorName) {
+                alert('请填写名字和回复内容！');
+                return;
+            }
+
+            const replyData = {
+                postId: postId,
+                author: authorName,
+                content: replyContent,
+                date: new Date().toLocaleString()
+            };
+
+            try {
+                // 获取并更新回复数据
+                const response = await fetch(replyViewApiUrl);
+                if (!response.ok) throw new Error('获取现有回复失败');
+                const existingData = await response.text();
+                let currentReplies = [];
+                if (existingData) {
+                    const parsed = JSON.parse(existingData);
+                    currentReplies = Array.isArray(parsed) ? parsed : [];
+                }
+                currentReplies.push(replyData);
+
+                // 提交更新
+                const updateResponse = await fetch(replyUpdateApiUrl, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: `value=${encodeURIComponent(JSON.stringify(currentReplies))}`
+                });
+
+                if (!updateResponse.ok) {
+                    throw new Error('发布回复失败，服务器响应异常');
+                }
+
+                document.getElementById(`replyContent_${postId}`).value = '';
+                await loadPosts();
+                alert('回复发布成功！');
+
+            } catch (error) {
+                console.error('回复失败:', error);
+                alert(`回复失败: ${error.message || '服务器连接异常'}`);
+            }
+        }
+
+        async function likePost(postId) {
+            try {
+                // 获取并更新点赞数据
+                const response = await fetch(likesViewApiUrl);
+                if (!response.ok) throw new Error('获取点赞数据失败');
+                const existingData = await response.text();
+                allLikes = existingData ? JSON.parse(existingData) : {};
+                allLikes[postId] = (allLikes[postId] || 0) + 1;
+
+                // 提交更新
+                const updateResponse = await fetch(likesUpdateApiUrl, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: `value=${encodeURIComponent(JSON.stringify(allLikes))}`
+                });
+
+                if (!updateResponse.ok) {
+                    throw new Error('更新点赞失败，服务器响应异常');
+                }
+
+                await loadPosts();
+
+            } catch (error) {
+                console.error('点赞失败:', error);
+                alert(`点赞失败: ${error.message || '服务器连接异常'}`);
+            }
+        }
+
+        async function loadPosts() {
+            const postsContainer = document.getElementById('postsContainer');
+            postsContainer.innerHTML = '加载中...';
+
+            try {
+                await initializeData();
+
+                if (!Array.isArray(allPosts) || allPosts.length === 0) {
+                    postsContainer.innerHTML = '<p>目前还没有评论。</p>';
+                    return;
+                }
+
+                postsContainer.innerHTML = '';
+                allPosts.reverse().forEach(postData => {
+                    const postDiv = document.createElement('div');
+                    postDiv.classList.add('post');
+                    
+                    const postReplies = allReplies.filter(reply => reply.postId === postData.id);
+                    const likeCount = allLikes[postData.id] || 0;
+
+                    postDiv.innerHTML = `
+                        <div class="post-header">
+                            <strong>${postData.author}</strong>
+                            ${postData.title ? ` | ${postData.title}` : ''}
+                            <br>
+                            ${postData.date}
+                        </div>
+                        <p class="post-content">${postData.content}</p>
+                        ${postData.bio ? `<div class="author-bio">关于作者: ${postData.bio}</div>` : ''}
+                        <div class="post-actions">
+                            <button onclick="likePost('${postData.id}')" class="like-button">
+                                👍 ${likeCount}
+                            </button>
+                        </div>
+                        <div class="replies">
+                            <h4>回复:</h4>
+                            ${postReplies.map(reply => `
+                                <div class="reply">
+                                    <strong>${reply.author}</strong> (${reply.date})<br>
+                                    ${reply.content}
+                                </div>
+                            `).join('')}
+                            <div class="reply-form">
+                                <textarea id="replyContent_${postData.id}" placeholder="写下你的回复..."></textarea>
+                                <button onclick="publishReply('${postData.id}')">发送回复</button>
+                            </div>
+                        </div>
+                    `;
+                    postsContainer.appendChild(postDiv);
+                });
+            } catch (error) {
+                console.error('加载评论失败:', error);
+                postsContainer.innerHTML = `<p>加载评论失败: ${error.message || '请刷新页面重试'}</p>`;
+            }
+        }
+
+        window.onload = loadPosts;
+    </script>
+    <style>
+        .replies {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .reply {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        .reply-form {
+            margin-top: 10px;
+        }
+        .reply-form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .post-actions {
+            margin: 10px 0;
+        }
+        .like-button {
+            padding: 5px 10px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .like-button:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</div>
+<!-- 博客内容结束 -->
+</body>
+</html>

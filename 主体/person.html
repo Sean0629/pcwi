@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>简易图片/视频人物相似度比对</title>
+    <style>
+        #container { display: flex; gap: 40px; }
+        #left, #right { flex: 1; }
+        #target-img, #compare-img, #video-preview { max-width: 100%; max-height: 320px; }
+        #result { margin-top: 20px; font-size: 18px; }
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+     <div align="center" class="STYLE1">
+        <p>
+            <span style="font-size:36px;">Sean的应用导航中心</span>
+            
+        </p>
+        <div align="center" class="STYLE2">
+            <p>
+                <a href="untitled.html"><span style="font-size:18px;">主</span><span style="font-size:18px;">页</span></a>&nbsp;
+                <a href="eaglercraft-m/warn.html"><span style="font-size:18px;">我</span><span style="font-size:18px;">的</span><span style="font-size:18px;">世</span><span style="font-size:18px;">界</span><span style="font-size:18px;">游</span><span style="font-size:18px;">玩</span></a>&nbsp;
+                <a href="code-editor.html"><span style="font-size:18px;">H</span><span style="font-size:18px;">T</span><span style="font-size:18px;">M</span><span style="font-size:18px;">L</span><span style="font-size:18px;">编</span><span style="font-size:18px;">辑</span></a>&nbsp;
+                <a href="http://physicshome.pages.dev"><span style="font-size:18px;">物</span><span style="font-size:18px;">理</span><span style="font-size:18px;">学</span><span style="font-size:18px;">网</span><span style="font-size:18px;">站</span></a>
+            </p>
+        </div>
+    </div>
+
+    <h2>简易的信息比对系统</h2>
+    <div id="container">
+        <div id="left">
+            <h3>目标图片</h3>
+            <input type="file" id="target-file" accept="image/*"><br>
+            <img id="target-img">
+        </div>
+        <div id="right">
+            <h3>目标文件（图片/视频）</h3>
+            <input type="file" id="compare-file" accept="image/*,video/*"><br>
+            <img id="compare-img" style="display:none;">
+            <video id="video-preview" controls style="display:none;"></video>
+        </div>
+    </div>
+    <div id="result"></div>
+    <canvas id="canvas1" width="16" height="16"></canvas>
+    <canvas id="canvas2" width="16" height="16"></canvas>
+    <script>
+    
+        function getImageHash(img, canvas, hashSize = 16) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, hashSize, hashSize);
+            const data = ctx.getImageData(0, 0, hashSize, hashSize).data;
+            let grayVals = [];
+            for (let i = 0; i < data.length; i += 4) {
+                grayVals.push(data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114);
+            }
+            const avg = grayVals.reduce((a, b) => a + b, 0) / grayVals.length;
+            return grayVals.map(v => v > avg ? 1 : 0);
+        }
+        function hammingDistance(hash1, hash2) {
+            let dist = 0;
+            for (let i = 0; i < hash1.length; i++) {
+                if (hash1[i] !== hash2[i]) dist++;
+            }
+            return dist;
+        }
+        function compareImagesByHash(img1, img2, canvas1, canvas2) {
+            const hash1 = getImageHash(img1, canvas1);
+            const hash2 = getImageHash(img2, canvas2);
+            const dist = hammingDistance(hash1, hash2);
+            const similarity = ((hash1.length - dist) / hash1.length) * 100;
+            return similarity.toFixed(2);
+        }
+
+        
+        const targetFile = document.getElementById('target-file');
+        const compareFile = document.getElementById('compare-file');
+        const targetImg = document.getElementById('target-img');
+        const compareImg = document.getElementById('compare-img');
+        const videoPreview = document.getElementById('video-preview');
+        const resultDiv = document.getElementById('result');
+        const canvas1 = document.getElementById('canvas1');
+        const canvas2 = document.getElementById('canvas2');
+        let targetImgLoaded = false;
+
+        
+        targetFile.onchange = function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            targetImg.src = url;
+            targetImg.onload = () => {
+                targetImgLoaded = true;
+                resultDiv.innerHTML = '';
+            };
+        };
+
+        
+        compareFile.onchange = function(e) {
+            const file = e.target.files[0];
+            if (!file || !targetImgLoaded) {
+                resultDiv.innerHTML = '请先上传目标图片';
+                return;
+            }
+            resultDiv.innerHTML = '处理中...';
+            if (file.type.startsWith('image/')) {
+                compareImg.style.display = '';
+                videoPreview.style.display = 'none';
+                compareImg.src = URL.createObjectURL(file);
+                compareImg.onload = () => {
+                    const similarity = compareImagesByHash(targetImg, compareImg, canvas1, canvas2);
+                    resultDiv.innerHTML = `<b>图片相似度：</b> ${similarity}%`;
+                };
+            } else if (file.type.startsWith('video/')) {
+                compareImg.style.display = 'none';
+                videoPreview.style.display = '';
+                videoPreview.src = URL.createObjectURL(file);
+                videoPreview.onloadedmetadata = () => {
+                    processVideo(targetImg, videoPreview, canvas1, canvas2);
+                };
+            }
+        };
+
+        
+        async function processVideo(targetImg, video, canvas1, canvas2) {
+            const duration = video.duration;
+            const fps = 60;
+            const maxFrames = Math.min(Math.floor(duration * fps), 5 * 60 * 60); // 最多5分钟60帧
+            let bestSimilarity = 0;
+            let bestTime = 0;
+            let threshold = 80; // 可调阈值
+            let similarTimes = [];
+            for (let i = 0; i < maxFrames; i++) {
+                const time = i / fps;
+                await seekVideo(video, time);
+                
+                canvas2.width = 16; canvas2.height = 16;
+                const ctx = canvas2.getContext('2d');
+                ctx.drawImage(video, 0, 0, 16, 16);
+              
+                const hash1 = getImageHash(targetImg, canvas1);
+                const hash2 = getImageHash(canvas2, canvas2);
+                const dist = hammingDistance(hash1, hash2);
+                const similarity = ((hash1.length - dist) / hash1.length) * 100;
+                if (similarity > bestSimilarity) {
+                    bestSimilarity = similarity;
+                    bestTime = time;
+                }
+                if (similarity >= threshold) {
+                    similarTimes.push(time);
+                }
+                
+                i++;
+            }
+            if (similarTimes.length > 0) {
+                resultDiv.innerHTML = `<b>视频中相似人物出现时间：</b><br>${similarTimes.map(t => t.toFixed(2) + 's').join(', ')}<br>最高相似度：${bestSimilarity.toFixed(2)}%（${bestTime.toFixed(2)}s）`;
+            } else {
+                resultDiv.innerHTML = `<b>未检测到相似人物</b><br>最高相似度：${bestSimilarity.toFixed(2)}%（${bestTime.toFixed(2)}s）`;
+            }
+        }
+        function seekVideo(video, time) {
+            return new Promise(resolve => {
+                function seeked() {
+                    video.removeEventListener('seeked', seeked);
+                    setTimeout(resolve, 30); 
+                }
+                video.addEventListener('seeked', seeked);
+                video.currentTime = time;
+            });
+        }
+    </script>
+</body>
+</html>

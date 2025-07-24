@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>多搜索引擎搜索页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .search-bar { margin-bottom: 20px; }
+        select, input[type="text"] { font-size: 16px; padding: 6px; }
+        button { font-size: 16px; padding: 6px 16px; }
+    </style>
+</head>
+<body>
+     <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="untitled.html">主页</a>&nbsp;<a href="eaglercraft-m/warn.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="http://physicshome.pages.dev">物理学网站</a></p>
+    </div>
+    </div>
+    <div class="search-bar">
+        搜索引擎：
+        <select id="engine">
+            <option value="https://www.bing.com/search?q=">必应</option>
+            <option value="https://www.baidu.com/s?wd=">百度</option>
+            <option value="https://www.google.com/search?q=">谷歌</option>
+            <option value="https://www.so.com/s?q=">360搜索</option>
+            <option value="https://www.toutiao.com/search/?keyword=">今日头条</option>
+            <option value="https://www.sogou.com/web?query=">搜狗</option>
+        </select>
+        <input type="text" id="query" placeholder="请输入搜索内容" autofocus>
+        <button onclick="search()">搜索</button>
+    </div>
+    <script>
+        function search() {
+            const engine = document.getElementById('engine').value;
+            const query = encodeURIComponent(document.getElementById('query').value.trim());
+            if (query) {
+                window.location.href = engine + query;
+            }
+        }
+        document.getElementById('query').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') search();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML/CSS/JS 编辑器</title>
+    <style>
+        body { font-family: "微软雅黑", Arial, sans-serif; margin: 0; padding: 0; background: #f7f7f7; }
+        h1 { text-align: center; margin-top: 20px; }
+        .editor-container { display: flex; gap: 10px; margin: 30px auto; width: 90%; max-width: 1200px; }
+        .editor { flex: 1; display: flex; flex-direction: column; }
+        .editor label { font-weight: bold; margin-bottom: 4px; }
+        .editor textarea { width: 100%; height: 220px; resize: vertical; font-family: monospace; font-size: 15px; margin-bottom: 8px; }
+        .editor button { margin-bottom: 8px; }
+        .preview-container { width: 100%; margin: 0 auto; max-width: 1200px; }
+        .preview-label { font-weight: bold; margin: 10px 0 4px 0; }
+        iframe { width: 100%; height: 300px; border: 1px solid #ccc; background: #fff; }
+        @media (max-width: 900px) {
+            .editor-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+     <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="untitled.html">主页</a>&nbsp;<a href="Minecraft.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="http://physicshome.pages.dev">物理学网站</a></p>
+    </div>
+    </div>
+    <script>
+      // 检查当前页面的域名是否合法
+      function checkDomain() {
+          const allowedDomains = ['sean0629.pages.dev', 'localhost:8000'];
+          const currentHost = window.location.host;
+          const currentProtocol = window.location.protocol;
+
+          if (!allowedDomains.includes(currentHost) || 
+              (currentHost === 'sean0629.pages.dev' && currentProtocol !== 'https:') ||
+              (currentHost === 'localhost:8000' && !window.location.pathname.includes('/index.html'))) {
+              document.body.innerHTML = `
+                  <p>请注意，本网站所有站点文件均受Cloudflare®知识产权保护计划保护。</p>
+                  <p>所有使用源代码的行为会被认定为侵权，并有可能被追究法律责任。</p>
+                  <p>请立刻停止您的行为，并删除此页面。</p>
+                  <p>如果您想体验完整的功能，请前往 <a href="https://sean0629.pages.dev">https://sean0629.pages.dev。</a></p>
+              `;
+              return false;
+          }
+          return true;
+      }
+
+      window.onload = checkDomain;
+    </script>    
+    <h1>HTML/CSS/JS 编辑器</h1>
+    <div class="editor-container">
+        <div class="editor">
+            <label for="htmlCode">HTML</label>
+            <textarea id="htmlCode" placeholder="编写HTML代码"></textarea>
+            <button onclick="saveFile('html')">保存HTML</button>
+        </div>
+        <div class="editor">
+            <label for="cssCode">CSS</label>
+            <textarea id="cssCode" placeholder="编写CSS代码"></textarea>
+            <button onclick="saveFile('css')">保存CSS</button>
+        </div>
+        <div class="editor">
+            <label for="jsCode">JavaScript</label>
+            <textarea id="jsCode" placeholder="编写JavaScript代码"></textarea>
+            <button onclick="saveFile('js')">保存JS</button>
+        </div>
+    </div>
+    <div class="preview-container">
+        <div class="preview-label">实时预览</div>
+        <iframe id="preview"></iframe>
+    </div>
+    <script>
+        const htmlCode = document.getElementById('htmlCode');
+        const cssCode = document.getElementById('cssCode');
+        const jsCode = document.getElementById('jsCode');
+        const preview = document.getElementById('preview');
+
+        function updatePreview() {
+            const html = htmlCode.value;
+            const css = `<style>${cssCode.value}</style>`;
+            const js = `<script>${jsCode.value}<\/script>`;
+            const content = `${html}\n${css}\n${js}`;
+            preview.srcdoc = content;
+        }
+
+        htmlCode.addEventListener('input', updatePreview);
+        cssCode.addEventListener('input', updatePreview);
+        jsCode.addEventListener('input', updatePreview);
+
+        function saveFile(type) {
+            let data = '';
+            let filename = '';
+            if (type === 'html') {
+                data = htmlCode.value;
+                filename = 'code.html';
+            } else if (type === 'css') {
+                data = cssCode.value;
+                filename = 'style.css';
+            } else if (type === 'js') {
+                data = jsCode.value;
+                filename = 'script.js';
+            }
+            const blob = new Blob([data], {type: 'text/plain'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        // 初始化预览
+        updatePreview();
+    </script>
+</body>
+</html>

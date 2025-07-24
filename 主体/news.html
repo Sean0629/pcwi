@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>新闻-包括时事新闻与游戏新闻</title>
+    <style type="text/css">
+        .STYLE1 {
+            font-size: 36px;
+        }
+        .STYLE2 {
+            font-size: 18px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div align="center" class="STYLE1">
+        <p>
+            <span style="font-size:36px;">Sean的应用导航中心</span>
+            
+        </p>
+        <div align="center" class="STYLE2">
+            <p>
+                <a href="untitled.html"><span style="font-size:18px;">主</span><span style="font-size:18px;">页</span></a>&nbsp;
+                <a href="eaglercraft-m/warn.html"><span style="font-size:18px;">我</span><span style="font-size:18px;">的</span><span style="font-size:18px;">世</span><span style="font-size:18px;">界</span><span style="font-size:18px;">游</span><span style="font-size:18px;">玩</span></a>&nbsp;
+                <a href="code-editor.html"><span style="font-size:18px;">H</span><span style="font-size:18px;">T</span><span style="font-size:18px;">M</span><span style="font-size:18px;">L</span><span style="font-size:18px;">编</span><span style="font-size:18px;">辑</span></a>&nbsp;
+                <a href="http://physicshome.pages.dev"><span style="font-size:18px;">物</span><span style="font-size:18px;">理</span><span style="font-size:18px;">学</span><span style="font-size:18px;">网</span><span style="font-size:18px;">站</span></a>
+            </p>
+        </div>
+    </div>
+    <div align="left" >
+        <p>
+            <span style="font-size:18px;">新闻-包括时事新闻与游戏新闻</span>
+        </p>
+    </div>
+    <div style="display: flex; gap: 40px; justify-content: flex-start; align-items: flex-start; margin: 40px 0 40px 0; max-width: 600px;">
+        <a href="News/new2.html" style="text-decoration: none; color: inherit;">
+            <div class="icon-container"
+                onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';"
+                onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+                <img src="images/1.jpg" class="big-icon">
+                <div class="icon-info">Minecraft1.21正式更新！</div>
+                <div class="info-tip" style="
+                    position: absolute;
+                    bottom: 10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: #888;
+                    font-size: 16px;
+                    background: rgba(255,255,255,0.8);
+                    padding: 2px 10px;
+                    border-radius: 8px;
+                    pointer-events: none;
+                    visibility: visible;
+                    ">
+                    Minecraft1.21发布！
+                </div>
+            </div>
+        </a>
+        <a href="News/new1.html" style="text-decoration: none; color: inherit;">
+            <div class="icon-container"
+                onmouseenter="this.querySelector('.info-tip').style.visibility='hidden';"
+                onmouseleave="this.querySelector('.info-tip').style.visibility='visible';">
+                <img src="images/1.jpg" class="big-icon">
+                <div class="icon-info">Minecraft1.21内容预告：史诗级的更新！</div>
+                <div class="info-tip" style="
+                    position: absolute;
+                    bottom: 10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: #888;
+                    font-size: 16px;
+                    background: rgba(255,255,255,0.8);
+                    padding: 2px 10px;
+                    border-radius: 8px;
+                    pointer-events: none;
+                    visibility: visible;
+                    ">
+                    Minecraft更新预告。
+                </div>
+            </div>
+        </a>
+    </div>
+    <style>
+        .icon-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0;
+            text-align: center;
+            transition: width 0.3s cubic-bezier(.4,0,.2,1), height 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        .big-icon {
+            width: 180px;
+            height: 180px;
+            border-radius: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: 
+                transform 0.3s cubic-bezier(.4,0,.2,1), 
+                box-shadow 0.3s cubic-bezier(.4,0,.2,1),
+                width 0.3s cubic-bezier(.4,0,.2,1), 
+                height 0.3s cubic-bezier(.4,0,.2,1);
+            display: block;
+            margin: 0 auto;
+            background: #f5f5f5;
+            object-fit: cover;
+        }
+        .icon-info {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 12px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            font-size: 18px;
+            padding: 10px 0;
+            border-radius: 0 0 18px 18px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(.4,0,.2,1), transform 0.3s cubic-bezier(.4,0,.2,1);
+            transform: translateY(20px);
+        }
+        .icon-container:hover {
+            width: 240px;
+            height: 240px;
+            z-index: 2;
+        }
+        .icon-container:hover .big-icon {
+            width: 240px;
+            height: 240px;
+            transform: scale(1.0);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        }
+        .icon-container:hover .icon-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</body>

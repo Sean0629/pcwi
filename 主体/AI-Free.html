@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>多搜索引擎搜索页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .search-bar { margin-bottom: 20px; }
+        select, input[type="text"] { font-size: 16px; padding: 6px; }
+        button { font-size: 16px; padding: 6px 16px; }
+    </style>
+    <script>
+        window.onload = function() {
+            alert("请注意，本页面将在2025年7月31日停止服务。");
+        };
+    </script>
+</head>
+<body>
+     <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="../untitled.html">主页</a>&nbsp;<a href="Minecraft.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="http://physicshome.pages.dev">物理学网站</a></p>
+    </div>
+    </div>
+
+    <div class="model-switcher" style="margin-top:30px;">
+        <label for="ai-model">选择AI模型（请注意，下面所有信息为AI生成，请注意甄别）：</label>
+        <select id="ai-model" onchange="switchModel()">
+            <option value="WP">WP</option>
+            <option value="WP-2">WP-2</option>
+            <option value="WP-2o">WP-2o</option>
+            <option value="WP-2o-mini">WP-2-mini</option>
+            <option value="MFrr">MFrr</option>
+            <option value="MFrr-mini">MFrr-mini</option>
+        </select>
+        <button onclick="runModel()">提问</button>
+    </div>
+    <div style="margin-top:30px;"></div>
+        <label for="user-input">输入你的问题：</label>
+        <input type="text" id="user-input" style="width:300px;" placeholder="请输入问题..." onkeydown="if(event.key==='Enter'){runModel();}">
+        <button onclick="runModel()">发送</button>
+    </div>
+    <div id="model-output" style="margin-top:20px; border:1px solid #ccc; padding:16px; min-height:40px;"></div>
+
+    <script>
+        function switchModel() {
+            document.getElementById('model-output').innerText = '';
+            document.getElementById('user-input').value = '';
+        }
+
+        function runModel() {
+            const model = document.getElementById('ai-model').value;
+            const msg = document.getElementById('user-input').value.trim();
+            if (!msg) {
+                document.getElementById('model-output').innerText = '请输入问题。';
+                return;
+            }
+            const msgLower = msg.toLowerCase();
+            let reply = '';
+            switch(model) {
+                case 'WP':
+                    if (/你好|您好|嗨|hello|hi/.test(msgLower)) reply = "你好！很高兴和你聊天。";
+                    else if (/你是谁|身份|介绍/.test(msgLower)) reply = "你去哔哩哔哩上搜小王铁摄就知道了。";
+                    else if (/帮助|help/.test(msgLower)) reply = "你配得到我的帮助吗？你谁啊你？";
+                    else if (/你知道这道题怎么做吗/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if (/再见|bye/.test(msgLower)) reply = "快滚吧。";
+                    else if (/谢谢|thanks/.test(msgLower)) reply = "你以为我会因为你说谢谢就帮你吗？";
+                    else if (/功能|能做什么/.test(msgLower)) reply = "你以为我会告诉你吗？你配吗？";
+                    else if (/你的父亲/.test(msgLower)) reply = "王春生是我的父亲。";
+                    else if (/你的母亲/.test(msgLower)) reply = "高雅是我的母亲。";
+                    else if (/你的家人/.test(msgLower)) reply = "我有个随地大小便的弟弟";
+                    else if(/请认真回答我的问题/.test(msgLower)) reply = "你以为我会认真回答你吗？你配吗？";
+                    else if(/你的数学好吗/.test(msgLower)) reply = "我期中数学考了89.5分，期末模拟考了91分！你也配跟我讨论数学？";
+                    else if(/建/.test(msgLower)) reply = "王春生死了。";
+                    else if(/岚|blue/.test(msgLower)) reply="高雅死了。";
+                    else if(/张垚|张土土土/.test(msgLower)) reply = "他死了。";
+                    else if(/你有病是吗|有意思吗|你别以为我不知道/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if(/一群傻逼|傻逼|滚蛋/.test(msgLower)) reply = "不要再精神内耗了。";
+                    else if(/你是个傻逼/.test(msgLower)) reply = "别狂吠了。“";
+                    break;
+                case 'WP-2':
+                  if (/你好|您好|嗨|hello|hi/.test(msgLower)) reply = "你好！很高兴和你聊天。";
+                    else if (/你是谁|身份|介绍/.test(msgLower)) reply = "你去哔哩哔哩上搜小王铁摄就知道了。";
+                    else if (/帮助|help/.test(msgLower)) reply = "你配得到我的帮助吗？你谁啊你？";
+                    else if (/你知道这道题怎么做吗/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if (/再见|bye/.test(msgLower)) reply = "快滚吧。";
+                    else if (/谢谢|thanks/.test(msgLower)) reply = "你以为我会因为你说谢谢就帮你吗？";
+                    else if (/功能|能做什么/.test(msgLower)) reply = "你以为我会告诉你吗？你配吗？";
+                    else if (/你的父亲/.test(msgLower)) reply = "王春生是我的父亲。";
+                    else if (/你的母亲/.test(msgLower)) reply = "高雅是我的母亲。";
+                    else if (/你的家人/.test(msgLower)) reply = "我有个随地大小便的弟弟";
+                    else if(/请认真回答我的问题/.test(msgLower)) reply = "你以为我会认真回答你吗？你配吗？";
+                    else if(/你的数学好吗/.test(msgLower)) reply = "我期中数学考了89.5分，期末模拟考了91分！你也配跟我讨论数学？";
+                    else if(/建/.test(msgLower)) reply = "王春生死了。";
+                    else if(/岚|blue/.test(msgLower)) reply="高雅死了。";
+                    else if(/张垚|张土土土/.test(msgLower)) reply = "他死了。";
+                    else if(/你有病是吗|有意思吗|你别以为我不知道/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if(/一群傻逼|傻逼|滚蛋/.test(msgLower)) reply = "不要再精神内耗了。";
+                    else if(/你是个傻逼/.test(msgLower)) reply = "别狂吠了。“";
+                    break;
+                case 'WP-2o':
+                   if (/你好|您好|嗨|hello|hi/.test(msgLower)) reply = "你好！很高兴和你聊天。";
+                    else if (/你是谁|身份|介绍/.test(msgLower)) reply = "你去哔哩哔哩上搜小王铁摄就知道了。";
+                    else if (/帮助|help/.test(msgLower)) reply = "你配得到我的帮助吗？你谁啊你？";
+                    else if (/你知道这道题怎么做吗/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if (/再见|bye/.test(msgLower)) reply = "快滚吧。";
+                    else if (/谢谢|thanks/.test(msgLower)) reply = "你以为我会因为你说谢谢就帮你吗？";
+                    else if (/功能|能做什么/.test(msgLower)) reply = "你以为我会告诉你吗？你配吗？";
+                    else if (/你的父亲/.test(msgLower)) reply = "王春生是我的父亲。";
+                    else if (/你的母亲/.test(msgLower)) reply = "高雅是我的母亲。";
+                    else if (/你的家人/.test(msgLower)) reply = "我有个随地大小便的弟弟";
+                    else if(/请认真回答我的问题/.test(msgLower)) reply = "你以为我会认真回答你吗？你配吗？";
+                    else if(/你的数学好吗/.test(msgLower)) reply = "我期中数学考了89.5分，期末模拟考了91分！你也配跟我讨论数学？";
+                    else if(/建/.test(msgLower)) reply = "王春生死了。";
+                    else if(/岚|blue/.test(msgLower)) reply="高雅死了。";
+                    else if(/张垚|张土土土/.test(msgLower)) reply = "他死了。";
+                    else if(/你有病是吗|有意思吗|你别以为我不知道/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if(/一群傻逼|傻逼|滚蛋/.test(msgLower)) reply = "不要再精神内耗了。";
+                    else if(/你是个傻逼/.test(msgLower)) reply = "别狂吠了。“";
+                    break;
+                case 'WP-2-mini':
+                    if (/你好|您好|嗨|hello|hi/.test(msgLower)) reply = "你好！很高兴和你聊天。";
+                    else if (/你是谁|身份|介绍/.test(msgLower)) reply = "你去哔哩哔哩上搜小王铁摄就知道了。";
+                    else if (/帮助|help/.test(msgLower)) reply = "你配得到我的帮助吗？你谁啊你？";
+                    else if (/你知道这道题怎么做吗/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if (/再见|bye/.test(msgLower)) reply = "快滚吧。";
+                    else if (/谢谢|thanks/.test(msgLower)) reply = "你以为我会因为你说谢谢就帮你吗？";
+                    else if (/功能|能做什么/.test(msgLower)) reply = "你以为我会告诉你吗？你配吗？";
+                    else if (/你的父亲/.test(msgLower)) reply = "王春生是我的父亲。";
+                    else if (/你的母亲/.test(msgLower)) reply = "高雅是我的母亲。";
+                    else if (/你的家人/.test(msgLower)) reply = "我有个随地大小便的弟弟";
+                    else if(/请认真回答我的问题/.test(msgLower)) reply = "你以为我会认真回答你吗？你配吗？";
+                    else if(/你的数学好吗/.test(msgLower)) reply = "我期中数学考了89.5分，期末模拟考了91分！你也配跟我讨论数学？";
+                    else if(/建/.test(msgLower)) reply = "王春生死了。";
+                    else if(/岚|blue/.test(msgLower)) reply="高雅死了。";
+                    else if(/张垚|张土土土/.test(msgLower)) reply = "他死了。";
+                    else if(/你有病是吗|有意思吗|你别以为我不知道/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if(/一群傻逼|傻逼|滚蛋/.test(msgLower)) reply = "不要再精神内耗了。";
+                    else if(/你是个傻逼/.test(msgLower)) reply = "别狂吠了。";
+                    break;
+                case 'MFrr':
+                    if (/你好|您好|嗨|hello|hi/.test(msgLower)) reply = "你好！很高兴和你聊天。";
+                    else if (/你是谁|身份|介绍/.test(msgLower)) reply = "你去哔哩哔哩上搜小王铁摄就知道了。";
+                    else if (/帮助|help/.test(msgLower)) reply = "你配得到我的帮助吗？你谁啊你？";
+                    else if (/你知道这道题怎么做吗/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if (/再见|bye/.test(msgLower)) reply = "快滚吧。";
+                    else if (/谢谢|thanks/.test(msgLower)) reply = "你以为我会因为你说谢谢就帮你吗？";
+                    else if (/功能|能做什么/.test(msgLower)) reply = "你以为我会告诉你吗？你配吗？";
+                    else if (/你的父亲/.test(msgLower)) reply = "王春生是我的父亲。";
+                    else if (/你的母亲/.test(msgLower)) reply = "高雅是我的母亲。";
+                    else if (/你的家人/.test(msgLower)) reply = "我有个随地大小便的弟弟";
+                    else if(/请认真回答我的问题/.test(msgLower)) reply = "你以为我会认真回答你吗？你配吗？";
+                    else if(/你的数学好吗/.test(msgLower)) reply = "我期中数学考了89.5分，期末模拟考了91分！你也配跟我讨论数学？";
+                    else if(/建/.test(msgLower)) reply = "王春生死了。";
+                    else if(/岚|blue/.test(msgLower)) reply="高雅死了。";
+                    else if(/张垚|张土土土/.test(msgLower)) reply = "他死了。";
+                    else if(/你有病是吗|有意思吗|你别以为我不知道/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if(/一群傻逼|傻逼|滚蛋/.test(msgLower)) reply = "不要再精神内耗了。";
+                    else if(/你是个傻逼/.test(msgLower)) reply = "别狂吠了。";
+                case 'MFrr-mini':
+                     if (/你好|您好|嗨|hello|hi/.test(msgLower)) reply = "你好！很高兴和你聊天。";
+                    else if (/你是谁|身份|介绍/.test(msgLower)) reply = "你去哔哩哔哩上搜小王铁摄就知道了。";
+                    else if (/帮助|help/.test(msgLower)) reply = "你配得到我的帮助吗？你谁啊你？";
+                    else if (/你知道这道题怎么做吗/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if (/再见|bye/.test(msgLower)) reply = "快滚吧。";
+                    else if (/谢谢|thanks/.test(msgLower)) reply = "你以为我会因为你说谢谢就帮你吗？";
+                    else if (/功能|能做什么/.test(msgLower)) reply = "你以为我会告诉你吗？你配吗？";
+                    else if (/你的父亲/.test(msgLower)) reply = "王春生是我的父亲。";
+                    else if (/你的母亲/.test(msgLower)) reply = "高雅是我的母亲。";
+                    else if (/你的家人/.test(msgLower)) reply = "我有个随地大小便的弟弟";
+                    else if(/请认真回答我的问题/.test(msgLower)) reply = "你以为我会认真回答你吗？你配吗？";
+                    else if(/你的数学好吗/.test(msgLower)) reply = "我期中数学考了89.5分，期末模拟考了91分！你也配跟我讨论数学？";
+                    else if(/建/.test(msgLower)) reply = "王春生死了。";
+                    else if(/岚|blue/.test(msgLower)) reply="高雅死了。";
+                    else if(/张垚|张土土土/.test(msgLower)) reply = "他死了。";
+                    else if(/你有病是吗|有意思吗|你别以为我不知道/.test(msgLower)) reply = "你是不是以为自己很酷很拽？";
+                    else if(/一群傻逼|傻逼|滚蛋/.test(msgLower)) reply = "不要再精神内耗了。";
+                    else if(/你是个傻逼/.test(msgLower)) reply = "别狂吠了。";
+                    break;
+            }
+            document.getElementById('model-output').innerText = reply;
+        }
+
+        // 初始化
+        switchModel();
+    </script>

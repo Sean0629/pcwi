@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>反馈意见</title>
+    <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="index.html">主页</a>&nbsp;<a href="eaglercraft-m/warn.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="https://physicshome.pages.dev/">物理学网站</a></p>
+    </div>
+    </div>
+    
+    <style>
+        body { font-family: "微软雅黑", Arial, sans-serif; background: #f7f7f7; margin: 0; }
+        .container { max-width: 700px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #ccc; padding-bottom: 30px; }
+        .header { padding: 18px; background: #4f8cff; color: #fff; font-size: 26px; border-radius: 8px 8px 0 0; text-align: center; }
+        .feedback-form { margin: 20px; padding: 15px; background: #f0f8ff; border-radius: 6px; }
+        .feedback-form textarea { 
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            min-height: 100px;
+            resize: vertical;
+        }
+        .feedback-form button {
+            padding: 8px 20px;
+            background: #4f8cff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .feedback-form button:active { background: #357ae8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">反馈意见</div>
+        <form class="feedback-form" id="feedbackForm">
+            <textarea placeholder="请输入您的反馈意见，在意见后添加您的联系方式，以便我们与您取得联系。" required></textarea>
+            <button type="submit">提交反馈</button>
+        </form>
+    </div>
+    <script>
+        const feedbackForm = document.getElementById('feedbackForm');
+
+        // 获取地理位置函数
+        async function getLocation() {
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    reject('您的浏览器不支持地理定位');
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        resolve({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        });
+                    },
+                    error => {
+                        reject('无法获取位置信息');
+                    }
+                );
+            });
+        }
+
+        feedbackForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let feedback = e.target.querySelector('textarea').value.trim();
+            if (!feedback) return;
+
+            try {
+                // 获取地理位置并附加到反馈文本
+                let locationInfo = '';
+                try {
+                    const location = await getLocation();
+                    locationInfo = `\n[位置信息: 经度：${location.longitude}；纬度：${location.latitude}]`;
+                    feedback += locationInfo;
+                } catch (locError) {
+                    console.warn('获取位置信息失败:', locError);
+                    locationInfo = '\n[位置信息: 无法获取]';
+                    feedback += locationInfo;
+                }
+
+                // 发送反馈内容和位置信息到API
+                const response = await fetch('https://api.textdb.online/update/?key=sean0629', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `value=${encodeURIComponent(feedback)}`
+                });
+
+                if (!response.ok) {
+                    throw new Error('网络响应出错');
+                }
+
+                alert('感谢您的反馈！');
+                e.target.reset();
+            } catch (error) {
+                console.error('提交反馈时出错:', error);
+                alert('抱歉，提交反馈时出现错误，请稍后重试。');
+            }
+        });
+    </script>
+</body>
+</html>

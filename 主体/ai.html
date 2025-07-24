@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>人工智能</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        #chat { width: 400px; height: 300px; border: 1px solid #ccc; overflow-y: auto; padding: 10px; }
+        #input { width: 320px; }
+        #send { width: 60px; }
+    </style>
+</head>
+<body>
+    <script>
+    function checkDomain() {
+        const allowedDomains = ['sean0629.pages.dev', 'localhost:8000'];
+        const currentHost = window.location.host;
+        const currentProtocol = window.location.protocol;
+
+        if (!allowedDomains.includes(currentHost) || 
+            (currentHost === 'sean0629.pages.dev' && currentProtocol !== 'https:') ||
+            (currentHost === 'localhost:8000' && !window.location.pathname.includes('/index.html'))) {
+            document.body.innerHTML = `
+                <p>请注意，本网站所有站点文件均受Cloudflare®知识产权保护计划保护。</p>
+                <p>所有使用源代码的行为会被认定为侵权，并有可能被追究法律责任。</p>
+                <p>请立刻停止您的行为，并删除此页面。</p>
+                <p>如果您想体验完整的功能，请前往 <a href="https://sean0629.pages.dev">https://sean0629.pages.dev。</a></p>
+            `;
+            return false;
+        }
+        return true;
+    }
+
+    window.onload = checkDomain;
+    </script>    
+    <div align="center" class="STYLE1">
+        <p>Sean的应用导航中心</p>
+    <div align="center" class="STYLE2">
+        <p><a href="../untitled.html">主页</a>&nbsp;<a href="eaglercraft-m/warn.html">我的世界游玩</a>&nbsp;<a href="code-editor.html">HTML编辑</a>&nbsp;<a href="http://physicshome.pages.dev">物理学网站</a></p>
+    </div>
+    </div>
+    <h2>简易人工智能聊天机器人</h2>
+    <div id="chat"></div>
+    <input type="text" id="input" placeholder="请输入你的问题..." />
+    <button id="send">发送</button>
+  
+<script>
+    let chat, input, send;
+
+    // 添加显示消息的函数
+    function appendMessage(sender, message) {
+        const div = document.createElement('div');
+        div.textContent = `${sender}: ${message}`;
+        chat.appendChild(div);
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    // 所有 DOM 相关初始化和事件绑定放到 DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', function() {
+        chat = document.getElementById('chat');
+        input = document.getElementById('input');
+        send = document.getElementById('send');
+
+        send.onclick = function() {
+            const userInput = input.value.trim();
+            if (!userInput) return;
+            appendMessage('你', userInput);
+            const aiReply = getAIResponse(userInput);
+            setTimeout(() => appendMessage('AI', aiReply), 500);
+            input.value = '';
+            input.focus();
+        };
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') send.onclick();
+        });
+    });
+
+    function translate(msg) {
+        const hasChinese = /[\u4e00-\u9fa5]/.test(msg);
+        if (hasChinese) {
+            const dict = {
+                '你好': 'Hello',
+                '谢谢': 'Thank you',
+                '再见': 'Goodbye',
+                '你叫什么名字': 'What is your name',
+                '你会说英文吗': 'Can you speak English',
+                '我喜欢你': 'I like you',
+                '今天天气怎么样': 'How is the weather today',
+                '你几岁': 'How old are you',
+                '你是谁': 'Who are you'
+            };
+            for (let k in dict) {
+                if (msg.includes(k)) return dict[k];
+            }
+            return 'Sorry, I can only translate simple sentences.';
+        } else {
+            const dict = {
+                'hello': '你好',
+                'thank you': '谢谢',
+                'goodbye': '再见',
+                'what is your name': '你叫什么名字',
+                'can you speak english': '你会说英文吗',
+                'i like you': '我喜欢你',
+                'how is the weather today': '今天天气怎么样',
+                'how old are you': '你几岁',
+                'who are you': '你是谁'
+            };
+            for (let k in dict) {
+                if (msg.toLowerCase().includes(k)) return dict[k];
+            }
+            return '抱歉，我只能翻译简单的句子。';
+        }
+    }
+
+    function calcMath(expr) {
+        try {
+            if (!/^[\d+\-*/().\s]+$/.test(expr)) return null;
+            let result = eval(expr);
+            if (typeof result === 'number' && isFinite(result)) {
+                return '答案是：' + result;
+            }
+        } catch (e) {}
+        return null;
+    }
+
+    function answerPrimaryQuestion(msg) {
+        if (/为什么水会流动/.test(msg)) return '因为水受重力影响，会从高处流向低处。';
+        if (/地球为什么会自转/.test(msg)) return '因为地球在形成时受到外力作用，产生了自转。';
+        if (/植物为什么需要阳光/.test(msg)) return '因为植物需要阳光进行光合作用，制造养分。';
+        if (/为什么要讲卫生/.test(msg)) return '讲卫生可以预防疾病，保持身体健康。';
+        if (/为什么要保护环境/.test(msg)) return '保护环境可以让我们的生活更美好，地球更健康。';
+        if (/为什么要多喝水/.test(msg)) return '多喝水有助于身体健康，促进新陈代谢。';
+        if (/为什么要做作业/.test(msg)) return '做作业可以帮助我们巩固知识，提高学习成绩。';
+        if (/为什么要尊重老师/.test(msg)) return '老师教我们知识，我们要尊重老师。';
+        if (/为什么要团结同学/.test(msg)) return '团结同学可以让我们更好地学习和生活。';
+        if (/为什么要爱护小动物/.test(msg)) return '小动物也是我们的朋友，我们要善待它们。';
+        return null;
+    }
+
+    function getAIResponse(message) {
+        const msg = message.trim();
+        const msgLower = msg.toLowerCase();
+
+        if (/^[a-z0-9\s,.'?!]+$/i.test(msg) && msg.length > 0) {
+            if (/hello|hi|hey/.test(msgLower)) return 'Hello! Nice to chat with you.';
+            if (/how are you/.test(msgLower)) return "I'm fine, thank you! How are you?";
+            if (/what is your name/.test(msgLower)) return "I'm your AI assistant.";
+            if (/can you speak chinese/.test(msgLower)) return "Yes, I can speak Chinese. 当然，我会说中文。";
+            if (/thank you|thanks/.test(msgLower)) return "You're welcome!";
+            if (/bye|goodbye/.test(msgLower)) return "Goodbye! Have a nice day!";
+            if (/translate to chinese|translate into chinese/.test(msgLower)) {
+                let toTrans = msg.replace(/translate (to|into) chinese[:,]?\s*/i, '');
+                return translate(toTrans);
+            }
+        }
+
+        if (/翻译/.test(msg)) {
+            let toTrans = msg.replace(/请?翻译[:：]?\s*/g, '');
+            return translate(toTrans);
+        }
+
+        if (/^(\d+\s*[\+\-\*\/]\s*)+\d+\s*$/.test(msg)) {
+            let result = calcMath(msg);
+            if (result) return result;
+        }
+
+        // 数学运算相关判断
+        if (/(\d+)[加\+](\d+)(等于)?(多少|几)?/.test(msg)) {
+            let m = msg.match(/(\d+)[加\+](\d+)/);
+            if (m) return '答案是：' + (parseInt(m[1]) + parseInt(m[2]));
+        }
+        if (/(\d+)[减\-](\d+)(等于)?(多少|几)?/.test(msg)) {
+            let m = msg.match(/(\d+)[减\-](\d+)/);
+            if (m) return '答案是：' + (parseInt(m[1]) - parseInt(m[2]));
+        }
+        if (/(\d+)[乘\*xX](\d+)(等于)?(多少|几)?/.test(msg)) {
+            let m = msg.match(/(\d+)[乘\*xX](\d+)/);
+            if (m) return '答案是：' + (parseInt(m[1]) * parseInt(m[2]));
+        }
+        if (/(\d+)[除\/](\d+)(等于)?(多少|几)?/.test(msg)) {
+            let m = msg.match(/(\d+)[除\/](\d+)/);
+            if (m && parseInt(m[2]) !== 0) return '答案是：' + (parseInt(m[1]) / parseInt(m[2]));
+        }
+
+        let primaryAns = answerPrimaryQuestion(msg);
+        if (primaryAns) return primaryAns;
+
+        // 常见问题回复
+        if (/你好|您好|嗨|hello|hi/.test(msgLower)) return '你好！很高兴和你聊天。';
+        if (/你是谁|你叫什么/.test(msgLower)) return '我是你的智能聊天助手，可以陪你聊天或帮你解答问题。';
+        if (/你会做什么|你能干什么/.test(msgLower)) return '我可以陪你聊天，回答问题，做数学运算，翻译中英文，还能解答小学题目。';
+        
+        // 如果没有匹配到任何规则，返回默认回复
+        return '抱歉，我不太明白你的意思。你可以问我一些简单的问题，或者让我帮你计算、翻译。';
+    }
+</script>
+</body>
+</html>
